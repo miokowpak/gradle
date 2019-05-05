@@ -40,8 +40,8 @@ Some plugins will break with this new version of Gradle, for example because the
 
 ==== User supplied Eclipse project names may be ignored on conflict
 
-Project names configured via link:{javadocPath}/org/gradle/plugins/ide/eclipse/model/EclipseProject.html[`EclipseProject.setName(...)`] were honored by Gradle and Buildship in all cases, even 
-when the names caused conflicts and import/synchronization errors. 
+Project names configured via link:{javadocPath}/org/gradle/plugins/ide/eclipse/model/EclipseProject.html[`EclipseProject.setName(...)`] were honored by Gradle and Buildship in all cases, even
+when the names caused conflicts and import/synchronization errors.
 
 Gradle can now deduplicate these names if they conflict with other project names in an Eclipse workspace. This may lead to different Eclipse project names for projects with user-specified names.
 
@@ -54,6 +54,16 @@ Contributed by link:https://github.com/fraenkelc[Christian Fränkel]
 <<jacoco_plugin#jacoco_plugin, The JaCoCo plugin>> has been upgraded to use link:http://www.jacoco.org/jacoco/trunk/doc/changes.html[JaCoCo version 0.8.4] instead of 0.8.3 by default.
 
 Contributed by link:https://github.com/Godin[Evgeny Mandrikov]
+
+==== Task dependencies are honored for `@Input` properties whose value is a `Property`
+
+TBD
+
+==== Declaring task dependencies using a file `Provider` that does not represent a task output
+
+Previously, it was possible to pass `Task.dependsOn()` a `Provider` that returns a file and that does not represent a task output. These providers would be ignored. In Gradle 5.5 this is now an error, as Gradle does not know how to build these files.
+
+Note that it is still possible to to pass `dependsOn()` a `Provider` that returns a file and also represents a task output, for example `myTask.dependsOn(jar.archiveFile)` or `myTask.dependsOn(task.flatMap { it.outputDir })`.
 
 [[changes_5.4]]
 == Upgrading from 5.3 and earlier
