@@ -77,6 +77,7 @@ class KotlinSourceParser {
 
     private
     fun Disposable.parseKotlinFiles(sourceRoots: List<File>, compilationClasspath: List<File>): List<KtFile> {
+        org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback()
         val configuration = CompilerConfiguration().apply {
 
             put(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, messageCollector)
